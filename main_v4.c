@@ -49,59 +49,7 @@ int readFile(Position headPoly1, Position headPoly2, char* fileName) {
 
 	return EXIT_SUCCESS;
 }
-int printPoly(char* polynomeName, Position first) {
-	printf(" %s", polynomeName);
-	if (first != NULL) {
-		if (first->exponent < 0) {
-			if (first->coefficient == 1) {
-				printf("x^(%d)", first->exponent);
-			}
-			else {
-				printf("%dx^(%d)", first->coefficient, first->exponent);
-			}
-		}
-		else {
-			if (first->coefficient == 1) {
-				printf("x^%d", first->exponent);
-			}
-			else {
-				printf("%dx^%d", first->coefficient, first->exponent);
-			}
-		}
 
-		first = first->next;
-	}
-
-	for (; first != NULL; first = first->next) {
-		if (first->coefficient < 0) {
-			if (first->exponent < 0) {
-				printf(" - %dx^(%d)", first->coefficient, first->exponent);
-			}
-			else printf(" - %dx^%d", first->coefficient, first->exponent);
-		}
-		else {
-			if (first->exponent < 0) {
-				if (first->coefficient == 1) {
-					printf(" + x^(%d)", first->exponent);
-				}
-				else {
-					printf(" + %dx^(%d)", first->coefficient, first->exponent);
-				}
-			}
-			else {
-				if (first->coefficient == 1) {
-					printf(" + x^%d", first->exponent);
-				}
-				else {
-					printf(" + %dx^%d", first->coefficient, first->exponent);
-				}
-			}
-		}
-	}
-
-	printf("\n");
-	return EXIT_SUCCESS;
-}
 
 int addPoly(Position resultHead, Position firstElementPoly1, Position firstElementPoly2) {
 	Position currentPoly1 = firstElementPoly1;
@@ -292,14 +240,12 @@ int main() {
 
 	if (readFile(&headPoly1, &headPoly2, fileName) == EXIT_SUCCESS) {
 
-		printPoly("First polynome: ", headPoly1.next);
-		printPoly("Second polynome: ", headPoly2.next);
+
 
 		addPoly(&headPolyAdd, headPoly1.next, headPoly2.next);
 		multiplyPoly(&headPolyMultiply, headPoly1.next, headPoly2.next);
 
-		printPoly("Added polynome: ", headPolyAdd.next);
-		printPoly("Multiplied polynome: ", headPolyMultiply.next);
+
 
 		freeMemory(&headPoly1);
 		freeMemory(&headPoly2);
